@@ -52,6 +52,10 @@ create policy "anyone can update vtubers"
   on vtubers for update
   using (true);
 
+create policy "anyone can delete vtubers"
+  on vtubers for delete
+  using (true);
+
 -- Favorites: readable/writable by session
 create policy "favorites are publicly readable"
   on favorites for select
