@@ -28,6 +28,11 @@ export async function fetchVtuberById(id) {
   return data
 }
 
+export async function deleteVtuber(id) {
+  const { error } = await supabase.from('vtubers').delete().eq('id', id)
+  if (error) throw error
+}
+
 export async function registerVtuber(vtuber) {
   const { data, error } = await supabase
     .from('vtubers')

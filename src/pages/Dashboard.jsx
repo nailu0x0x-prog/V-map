@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchVtuberById, fetchImpressionCounts } from '../lib/api'
-import { getMyVtuberIds } from '../lib/myVtubers'
+import { fetchVtuberById, fetchImpressionCounts, deleteVtuber } from '../lib/api'
+import { getMyVtuberIds, removeMyVtuberId } from '../lib/myVtubers'
 
 export default function Dashboard() {
   const [items, setItems] = useState([])
@@ -24,6 +24,17 @@ export default function Dashboard() {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
   }, [])
+
+  const handleDelete = async (id) => {
+    if (!confirm('このVTuberを削除しますか？この操作は取り消せません。')) return
+    try {
+      await deleteVtuber(id)
+      removeMyVtuberId(id)
+      setItems((prev) => prev.filter((item) => item.vtuber.id !== id))
+    } catch (err) {
+      setError(err.message)
+    }
+  }
 
   if (loading) return <p className="text-center text-gray-400">読み込み中...</p>
   if (error) return <p className="text-center text-red-500">{error}</p>
@@ -58,6 +69,12 @@ export default function Dashboard() {
                 >
                   プロフィールを見る
                 </Link>
+                <button
+                  onClick={() => handleDelete(vtuber.id)}
+                  className="text-sm text-red-500 hover:text-red-600"
+                >
+                  削除
+                </button>
               </div>
               <div className="flex gap-6 text-sm text-gray-500">
                 <p>

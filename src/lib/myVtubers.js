@@ -15,3 +15,11 @@ export function addMyVtuberId(id) {
     localStorage.setItem(MY_VTUBERS_KEY, JSON.stringify([...ids, id]))
   }
 }
+
+export function removeMyVtuberId(id) {
+  const ids = getMyVtuberIds()
+  localStorage.setItem(
+    MY_VTUBERS_KEY,
+    JSON.stringify(ids.filter((existing) => existing !== id)),
+  )
+}
