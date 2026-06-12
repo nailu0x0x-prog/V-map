@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { registerVtuber } from '../lib/api'
+import { registerVtuber, uploadAvatar } from '../lib/api'
 import { addMyVtuberId } from '../lib/myVtubers'
 import { TAG_GROUPS, MOODS, MAX_TAGS, QUIZ_QUESTIONS } from '../lib/constants'
 
@@ -16,12 +16,13 @@ export default function Register() {
   const [form, setForm] = useState({
     name: '',
     bio: '',
-    avatar_url: '',
     mood: '',
   })
   const [links, setLinks] = useState({})
   const [tags, setTags] = useState([])
   const [vector, setVector] = useState(Array(QUIZ_QUESTIONS.length).fill(0.5))
+  const [avatarFile, setAvatarFile] = useState(null)
+  const [avatarPreview, setAvatarPreview] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
 
@@ -31,6 +32,13 @@ export default function Register() {
 
   const handleLinkChange = (key, value) => {
     setLinks((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setAvatarFile(file)
+    setAvatarPreview(URL.createObjectURL(file))
   }
 
   const toggleTag = (tag) => {
@@ -58,10 +66,11 @@ export default function Register() {
     setSubmitting(true)
     setError(null)
     try {
+      const avatar_url = avatarFile ? await uploadAvatar(avatarFile) : null
       const vtuber = await registerVtuber({
         name: form.name,
         bio: form.bio,
-        avatar_url: form.avatar_url,
+        avatar_url,
         mood: form.mood || null,
         tags,
         links,
@@ -101,14 +110,20 @@ export default function Register() {
           />
         </Field>
 
-        <Field label="アイコン画像URL">
-          <input
-            name="avatar_url"
-            value={form.avatar_url}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-            placeholder="https://..."
-          />
+        <Field label="アイコン画像">
+          <div className="flex items-center gap-4">
+            <img
+              src={avatarPreview || 'https://placehold.co/64x64?text=V'}
+              alt=""
+              className="w-16 h-16 rounded-full object-cover bg-gray-100"
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="text-sm"
+            />
+          </div>
         </Field>
 
         <Field label="ムード">

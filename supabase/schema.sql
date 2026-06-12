@@ -73,3 +73,16 @@ create policy "impressions are publicly readable"
 create policy "anyone can insert impressions"
   on impressions for insert
   with check (true);
+
+-- Storage: avatar images
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true)
+on conflict (id) do nothing;
+
+create policy "avatar images are publicly accessible"
+  on storage.objects for select
+  using (bucket_id = 'avatars');
+
+create policy "anyone can upload avatars"
+  on storage.objects for insert
+  with check (bucket_id = 'avatars');
