@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { registerVtuber, uploadAvatar } from '../lib/api'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { registerVtuber, updateVtuber, uploadAvatar, fetchVtuberById } from '../lib/api'
 import { addMyVtuberId } from '../lib/myVtubers'
 import { TAG_GROUPS, MOODS, MAX_TAGS, QUIZ_QUESTIONS } from '../lib/constants'
 
@@ -13,6 +13,8 @@ const LINK_FIELDS = [
 
 export default function Register() {
   const navigate = useNavigate()
+  const { id } = useParams()
+  const isEdit = Boolean(id)
   const [form, setForm] = useState({
     name: '',
     bio: '',
@@ -25,6 +27,25 @@ export default function Register() {
   const [avatarPreview, setAvatarPreview] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(isEdit)
+
+  useEffect(() => {
+    if (!isEdit) return
+    fetchVtuberById(id)
+      .then((vtuber) => {
+        setForm({
+          name: vtuber.name || '',
+          bio: vtuber.bio || '',
+          mood: vtuber.mood || '',
+        })
+        setLinks(vtuber.links || {})
+        setTags(vtuber.tags || [])
+        setVector(vtuber.vector || Array(QUIZ_QUESTIONS.length).fill(0.5))
+        setAvatarPreview(vtuber.avatar_url || null)
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false))
+  }, [id, isEdit])
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -66,8 +87,8 @@ export default function Register() {
     setSubmitting(true)
     setError(null)
     try {
-      const avatar_url = avatarFile ? await uploadAvatar(avatarFile) : null
-      const vtuber = await registerVtuber({
+      const avatar_url = avatarFile ? await uploadAvatar(avatarFile) : avatarPreview
+      const payload = {
         name: form.name,
         bio: form.bio,
         avatar_url,
@@ -75,9 +96,15 @@ export default function Register() {
         tags,
         links,
         vector,
-      })
-      addMyVtuberId(vtuber.id)
-      navigate(`/v/${vtuber.id}`)
+      }
+      if (isEdit) {
+        const vtuber = await updateVtuber(id, payload)
+        navigate(`/v/${vtuber.id}`)
+      } else {
+        const vtuber = await registerVtuber(payload)
+        addMyVtuberId(vtuber.id)
+        navigate(`/v/${vtuber.id}`)
+      }
     } catch (err) {
       setError(err.message)
     } finally {
@@ -85,9 +112,11 @@ export default function Register() {
     }
   }
 
+  if (loading) return <p className="text-center text-gray-400">読み込み中...</p>
+
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">VTuber登録</h1>
+      <h1 className="text-2xl font-bold mb-6">{isEdit ? 'プロフィール編集' : 'VTuber登録'}</h1>
 
       <form
         onSubmit={handleSubmit}
@@ -225,7 +254,7 @@ export default function Register() {
           disabled={submitting}
           className="px-8 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition disabled:opacity-50"
         >
-          {submitting ? '登録中...' : '登録する'}
+          {submitting ? '保存中...' : isEdit ? '更新する' : '登録する'}
         </button>
       </form>
     </div>

@@ -69,6 +69,12 @@ export default function Dashboard() {
                 >
                   プロフィールを見る
                 </Link>
+                <Link
+                  to={`/v/${vtuber.id}/edit`}
+                  className="text-sm text-purple-600"
+                >
+                  編集
+                </Link>
                 <button
                   onClick={() => handleDelete(vtuber.id)}
                   className="text-sm text-red-500 hover:text-red-600"

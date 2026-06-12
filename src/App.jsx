@@ -16,6 +16,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/v/:id" element={<VTuberDetail />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/v/:id/edit" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </Routes>
