@@ -89,7 +89,15 @@ export default function Register() {
     <div className="max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">VTuber登録</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      <form
+        onSubmit={handleSubmit}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault()
+          }
+        }}
+        className="flex flex-col gap-6"
+      >
         <Field label="名前 *">
           <input
             name="name"
