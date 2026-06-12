@@ -10,21 +10,69 @@ export const MOODS = [
   '癒し系',
 ]
 
-// キャラクタータグ例
+// キャラクタータグ
 export const CHARACTER_TAGS = [
-  'メンヘラ',
+  'お兄さん系',
+  'お姉さん系',
   '少年系',
+  '少女系',
+  '性別不詳',
+  '人外',
+  'ケモ耳',
+  '天使系',
   '悪魔系',
   '和風',
-  '深海',
-  'ファンタジー異世界',
-  '生徒系',
-  '魔法少女',
+  'ファンタジー',
+  'メカ',
+  '海・人魚',
+  '魔法使い',
+  '宇宙系',
 ]
 
-export const ALL_TAGS = [...MOODS, ...CHARACTER_TAGS]
+// 声タグ
+export const VOICE_TAGS = [
+  '低音ボイス',
+  '高音ボイス',
+  '中低音ボイス',
+  '中性ボイス',
+  'ショタボイス',
+  'ロリボイス',
+  '癒し系ボイス',
+  '個性的ボイス',
+  '関西弁',
+  'ご当地方言',
+]
 
-export const MAX_TAGS = 10
+// 活動方針タグ
+export const ACTIVITY_TAGS = [
+  '歌枠',
+  'ゲーム実況',
+  '企画もの',
+  'コラボ多め',
+  'ASMR',
+  'お絵描き',
+  'クリエイティブ活動',
+  '料理',
+  'スポーツ',
+  '動画メイン',
+]
+
+export const ALL_TAGS = [
+  ...MOODS,
+  ...CHARACTER_TAGS,
+  ...VOICE_TAGS,
+  ...ACTIVITY_TAGS,
+]
+
+// タグ選択UIをグループ表示するための定義
+export const TAG_GROUPS = [
+  { label: 'ムード', tags: MOODS },
+  { label: 'キャラ', tags: CHARACTER_TAGS },
+  { label: '声', tags: VOICE_TAGS },
+  { label: '活動方針', tags: ACTIVITY_TAGS },
+]
+
+export const MAX_TAGS = 15
 
 // 診断8問（スライダー 0〜1）
 export const QUIZ_QUESTIONS = [

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { registerVtuber } from '../lib/api'
 import { addMyVtuberId } from '../lib/myVtubers'
-import { ALL_TAGS, MOODS, MAX_TAGS, QUIZ_QUESTIONS } from '../lib/constants'
+import { TAG_GROUPS, MOODS, MAX_TAGS, QUIZ_QUESTIONS } from '../lib/constants'
 
 const LINK_FIELDS = [
   { key: 'youtube', label: 'YouTube' },
@@ -128,20 +128,27 @@ export default function Register() {
         </Field>
 
         <Field label={`タグ（最大${MAX_TAGS}個）`}>
-          <div className="flex flex-wrap gap-2">
-            {ALL_TAGS.map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => toggleTag(tag)}
-                className={`text-sm px-3 py-1 rounded-full border transition ${
-                  tags.includes(tag)
-                    ? 'bg-purple-600 text-white border-purple-600'
-                    : 'border-gray-300 text-gray-600 hover:border-purple-400'
-                }`}
-              >
-                {tag}
-              </button>
+          <div className="flex flex-col gap-3">
+            {TAG_GROUPS.map((group) => (
+              <div key={group.label}>
+                <p className="text-xs text-gray-400 mb-1">{group.label}</p>
+                <div className="flex flex-wrap gap-2">
+                  {group.tags.map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => toggleTag(tag)}
+                      className={`text-sm px-3 py-1 rounded-full border transition ${
+                        tags.includes(tag)
+                          ? 'bg-purple-600 text-white border-purple-600'
+                          : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
           <p className="text-xs text-gray-400 mt-1">{tags.length} / {MAX_TAGS}</p>

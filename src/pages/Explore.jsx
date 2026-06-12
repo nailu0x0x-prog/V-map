@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { fetchVtubers, recordImpression } from '../lib/api'
 import { rankByMatch } from '../lib/matching'
-import { ALL_TAGS, MOODS } from '../lib/constants'
+import { MOODS, TAG_GROUPS } from '../lib/constants'
 import VTuberCard from '../components/VTuberCard'
 
 export default function Explore() {
@@ -97,24 +97,26 @@ export default function Explore() {
             </div>
           </div>
 
-          <div>
-            <p className="text-sm font-semibold mb-2">タグ</p>
-            <div className="flex flex-wrap gap-2">
-              {ALL_TAGS.map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => toggleTag(tag)}
-                  className={`text-sm px-3 py-1 rounded-full border transition ${
-                    selectedTags.includes(tag)
-                      ? 'bg-purple-600 text-white border-purple-600'
-                      : 'border-gray-300 text-gray-600 hover:border-purple-400'
-                  }`}
-                >
-                  {tag}
-                </button>
-              ))}
+          {TAG_GROUPS.filter((group) => group.label !== 'ムード').map((group) => (
+            <div key={group.label}>
+              <p className="text-sm font-semibold mb-2">{group.label}</p>
+              <div className="flex flex-wrap gap-2">
+                {group.tags.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => toggleTag(tag)}
+                    className={`text-sm px-3 py-1 rounded-full border transition ${
+                      selectedTags.includes(tag)
+                        ? 'bg-purple-600 text-white border-purple-600'
+                        : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                    }`}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
 
         {filtered.length === 0 ? (
