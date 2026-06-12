@@ -1,0 +1,132 @@
+import { useEffect, useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { fetchVtubers, recordImpression } from '../lib/api'
+import { rankByMatch } from '../lib/matching'
+import { ALL_TAGS, MOODS } from '../lib/constants'
+import VTuberCard from '../components/VTuberCard'
+
+export default function Explore() {
+  const location = useLocation()
+  const answers = location.state?.answers
+
+  const [vtubers, setVtubers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [selectedTags, setSelectedTags] = useState([])
+  const [selectedMood, setSelectedMood] = useState('')
+
+  useEffect(() => {
+    fetchVtubers()
+      .then(setVtubers)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const matchResults = useMemo(() => {
+    if (!answers) return null
+    return rankByMatch(vtubers, answers).slice(0, 5)
+  }, [answers, vtubers])
+
+  useEffect(() => {
+    if (!matchResults) return
+    matchResults.forEach(({ vtuber }) => {
+      recordImpression(vtuber.id, 'match').catch(() => {})
+    })
+  }, [matchResults])
+
+  const toggleTag = (tag) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    )
+  }
+
+  const filtered = useMemo(() => {
+    return vtubers.filter((v) => {
+      if (selectedMood && v.mood !== selectedMood) return false
+      if (
+        selectedTags.length > 0 &&
+        !selectedTags.every((tag) => v.tags?.includes(tag))
+      )
+        return false
+      return true
+    })
+  }, [vtubers, selectedTags, selectedMood])
+
+  if (loading) return <p className="text-center text-gray-400">読み込み中...</p>
+  if (error) return <p className="text-center text-red-500">{error}</p>
+
+  return (
+    <div className="flex flex-col gap-10">
+      {matchResults && (
+        <section>
+          <h1 className="text-2xl font-bold mb-4">診断結果</h1>
+          {matchResults.length === 0 ? (
+            <p className="text-gray-400">該当するVTuberがいません。</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {matchResults.map(({ vtuber, score }) => (
+                <VTuberCard key={vtuber.id} vtuber={vtuber} matchScore={score} />
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      <section>
+        <h1 className="text-2xl font-bold mb-4">VTuberを探す</h1>
+
+        <div className="flex flex-col gap-3 mb-6">
+          <div>
+            <p className="text-sm font-semibold mb-2">ムード</p>
+            <div className="flex flex-wrap gap-2">
+              {MOODS.map((mood) => (
+                <button
+                  key={mood}
+                  onClick={() =>
+                    setSelectedMood((prev) => (prev === mood ? '' : mood))
+                  }
+                  className={`text-sm px-3 py-1 rounded-full border transition ${
+                    selectedMood === mood
+                      ? 'bg-purple-600 text-white border-purple-600'
+                      : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                  }`}
+                >
+                  {mood}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold mb-2">タグ</p>
+            <div className="flex flex-wrap gap-2">
+              {ALL_TAGS.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className={`text-sm px-3 py-1 rounded-full border transition ${
+                    selectedTags.includes(tag)
+                      ? 'bg-purple-600 text-white border-purple-600'
+                      : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                  }`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {filtered.length === 0 ? (
+          <p className="text-gray-400">該当するVTuberがいません。</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filtered.map((vtuber) => (
+              <VTuberCard key={vtuber.id} vtuber={vtuber} />
+            ))}
+          </div>
+        )}
+      </section>
+    </div>
+  )
+}
