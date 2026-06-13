@@ -19,7 +19,7 @@ export default function Dashboard() {
       return
     }
 
-    Promise.allSettled([
+    Promise.all([
       Promise.allSettled(
         myIds.map(async (id) => {
           const vtuber = await fetchVtuberById(id)
