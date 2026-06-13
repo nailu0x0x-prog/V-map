@@ -8,6 +8,8 @@ export const MOODS = [
   'ガチャ系',
   '深夜系',
   '癒し系',
+  'ゲームメイン',
+  '雑談メイン',
 ]
 
 // キャラクタータグ
@@ -47,8 +49,6 @@ export const VOICE_TAGS = [
 export const ACTIVITY_TAGS = [
   '歌枠',
   'ゲーム実況',
-  'ゲームメイン',
-  '雑談メイン',
   '企画もの',
   'コラボ多め',
   'ASMR',
