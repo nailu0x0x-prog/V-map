@@ -21,7 +21,6 @@ export default function Register() {
   const [form, setForm] = useState({
     name: '',
     bio: '',
-    mood: '',
   })
   const [links, setLinks] = useState({})
   const [tags, setTags] = useState([])
@@ -39,7 +38,6 @@ export default function Register() {
         setForm({
           name: vtuber.name || '',
           bio: vtuber.bio || '',
-          mood: vtuber.mood || '',
         })
         setLinks(vtuber.links || {})
         setTags(vtuber.tags || [])
@@ -95,7 +93,7 @@ export default function Register() {
         name: form.name,
         bio: form.bio,
         avatar_url,
-        mood: form.mood || null,
+        mood: tags.find((tag) => MOODS.includes(tag)) || null,
         tags,
         links,
         vector,
@@ -167,22 +165,6 @@ export default function Register() {
           <p className="text-xs text-gray-400 mt-1">
             推奨サイズ: 400×400px（正方形）
           </p>
-        </Field>
-
-        <Field label="ムード">
-          <select
-            name="mood"
-            value={form.mood}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-          >
-            <option value="">選択してください</option>
-            {MOODS.map((mood) => (
-              <option key={mood} value={mood}>
-                {mood}
-              </option>
-            ))}
-          </select>
         </Field>
 
         <Field label={`タグ（最大${MAX_TAGS}個）`}>
