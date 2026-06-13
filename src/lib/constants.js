@@ -47,6 +47,8 @@ export const VOICE_TAGS = [
 export const ACTIVITY_TAGS = [
   '歌枠',
   'ゲーム実況',
+  'ゲームメイン',
+  '雑談メイン',
   '企画もの',
   'コラボ多め',
   'ASMR',
@@ -54,7 +56,8 @@ export const ACTIVITY_TAGS = [
   'クリエイティブ活動',
   '料理',
   'スポーツ',
-  '動画メイン',
+  '動画',
+  '配信',
 ]
 
 export const ALL_TAGS = [

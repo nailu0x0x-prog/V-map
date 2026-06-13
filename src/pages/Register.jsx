@@ -161,6 +161,9 @@ export default function Register() {
               className="text-sm"
             />
           </div>
+          <p className="text-xs text-gray-400 mt-1">
+            推奨サイズ: 400×400px（正方形）
+          </p>
         </Field>
 
         <Field label="ムード">
