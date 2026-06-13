@@ -60,11 +60,23 @@ export const ACTIVITY_TAGS = [
   '配信',
 ]
 
+// 活動場所タグ
+export const PLATFORM_TAGS = [
+  'YouTube',
+  'ツイキャス',
+  'X',
+  'Twitch',
+  'IRIAM',
+  'TikTok',
+  'その他',
+]
+
 export const ALL_TAGS = [
   ...MOODS,
   ...CHARACTER_TAGS,
   ...VOICE_TAGS,
   ...ACTIVITY_TAGS,
+  ...PLATFORM_TAGS,
 ]
 
 // タグ選択UIをグループ表示するための定義
@@ -73,6 +85,7 @@ export const TAG_GROUPS = [
   { label: 'キャラ', tags: CHARACTER_TAGS },
   { label: '声', tags: VOICE_TAGS },
   { label: '活動方針', tags: ACTIVITY_TAGS },
+  { label: '活動場所', tags: PLATFORM_TAGS },
 ]
 
 export const MAX_TAGS = 15

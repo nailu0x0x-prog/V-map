@@ -8,6 +8,9 @@ const LINK_LABELS = {
   twitch: 'Twitch',
   twitcasting: 'ツイキャス',
   x: 'X',
+  iriam: 'IRIAM',
+  tiktok: 'TikTok',
+  other: 'その他',
 }
 
 export default function VTuberDetail() {

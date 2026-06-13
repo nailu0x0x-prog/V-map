@@ -9,6 +9,9 @@ const LINK_FIELDS = [
   { key: 'twitch', label: 'Twitch' },
   { key: 'twitcasting', label: 'ツイキャス' },
   { key: 'x', label: 'X' },
+  { key: 'iriam', label: 'IRIAM' },
+  { key: 'tiktok', label: 'TikTok' },
+  { key: 'other', label: 'その他' },
 ]
 
 export default function Register() {
