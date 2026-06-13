@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { QUIZ_QUESTIONS } from '../lib/constants'
+import { QUIZ_QUESTIONS, GENDERS } from '../lib/constants'
 
 export default function Quiz() {
   const navigate = useNavigate()
   const [answers, setAnswers] = useState(
     Array(QUIZ_QUESTIONS.length).fill(0.5),
   )
+  const [gender, setGender] = useState('')
 
   const handleChange = (index, value) => {
     setAnswers((prev) => {
@@ -17,7 +18,7 @@ export default function Quiz() {
   }
 
   const handleSubmit = () => {
-    navigate('/explore', { state: { answers } })
+    navigate('/explore', { state: { answers, gender } })
   }
 
   return (
@@ -48,6 +49,26 @@ export default function Quiz() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-8">
+        <p className="font-semibold mb-2">好みの性別（任意）</p>
+        <div className="flex flex-wrap gap-2">
+          {GENDERS.map((g) => (
+            <button
+              key={g}
+              type="button"
+              onClick={() => setGender((prev) => (prev === g ? '' : g))}
+              className={`text-sm px-3 py-1 rounded-full border transition ${
+                gender === g
+                  ? 'bg-purple-600 text-white border-purple-600'
+                  : 'border-gray-300 text-gray-600 hover:border-purple-400'
+              }`}
+            >
+              {g}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="mt-10 text-center">

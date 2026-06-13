@@ -29,6 +29,7 @@ export const CHARACTER_TAGS = [
   '海・人魚',
   '魔法使い',
   '宇宙系',
+  'マスコット',
 ]
 
 // 声タグ
@@ -58,6 +59,8 @@ export const ACTIVITY_TAGS = [
   'スポーツ',
   '動画',
   '配信',
+  '専門知識',
+  'TRPG',
 ]
 
 // 活動場所タグ
@@ -87,6 +90,9 @@ export const TAG_GROUPS = [
   { label: '活動方針', tags: ACTIVITY_TAGS },
   { label: '活動場所', tags: PLATFORM_TAGS },
 ]
+
+// 性別
+export const GENDERS = ['女性', '男性', 'その他']
 
 export const MAX_TAGS = 15
 

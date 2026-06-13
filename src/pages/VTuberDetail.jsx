@@ -55,9 +55,14 @@ export default function VTuberDetail() {
         />
         <div>
           <h1 className="text-2xl font-bold">{vtuber.name}</h1>
-          {vtuber.mood && (
-            <p className="text-purple-600 text-sm mt-1">{vtuber.mood}</p>
-          )}
+          <div className="flex items-center gap-2 mt-1">
+            {vtuber.mood && (
+              <p className="text-purple-600 text-sm">{vtuber.mood}</p>
+            )}
+            {vtuber.gender && (
+              <p className="text-gray-400 text-sm">{vtuber.gender}</p>
+            )}
+          </div>
         </div>
         <button
           onClick={handleToggleFavorite}

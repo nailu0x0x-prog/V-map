@@ -13,15 +13,24 @@ export default function Dashboard() {
     if (ids.length === 0) {
       return
     }
-    Promise.all(
+    Promise.allSettled(
       ids.map(async (id) => {
         const vtuber = await fetchVtuberById(id)
         const counts = await fetchImpressionCounts(id)
         return { vtuber, ...counts }
       }),
     )
-      .then(setItems)
-      .catch((err) => setError(err.message))
+      .then((results) => {
+        const fulfilled = results
+          .filter((r) => r.status === 'fulfilled')
+          .map((r) => r.value)
+        setItems(fulfilled)
+        if (fulfilled.length === 0 && results.length > 0) {
+          setError(
+            'データの読み込みに失敗しました。ブラウザの設定（広告・トラッカーブロック機能など）で通信がブロックされている可能性があります。設定を緩めて再度お試しください。',
+          )
+        }
+      })
       .finally(() => setLoading(false))
   }, [])
 

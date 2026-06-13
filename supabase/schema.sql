@@ -10,9 +10,13 @@ create table if not exists vtubers (
   links       jsonb default '{}'::jsonb, -- { youtube, twitch, twitcasting, x }
   tags        text[] default '{}',
   mood        text,
+  gender      text,
   vector      float8[] not null default '{0,0,0,0,0,0,0,0}',
   created_at  timestamptz not null default now()
 );
+
+-- 既存DBに gender 列を追加する場合
+alter table vtubers add column if not exists gender text;
 
 create table if not exists favorites (
   id          uuid primary key default gen_random_uuid(),

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { registerVtuber, updateVtuber, uploadAvatar, fetchVtuberById } from '../lib/api'
 import { addMyVtuberId } from '../lib/myVtubers'
-import { TAG_GROUPS, MOODS, MAX_TAGS, QUIZ_QUESTIONS } from '../lib/constants'
+import { TAG_GROUPS, MOODS, GENDERS, MAX_TAGS, QUIZ_QUESTIONS } from '../lib/constants'
 
 const LINK_FIELDS = [
   { key: 'youtube', label: 'YouTube' },
@@ -21,6 +21,7 @@ export default function Register() {
   const [form, setForm] = useState({
     name: '',
     bio: '',
+    gender: '',
   })
   const [links, setLinks] = useState({})
   const [tags, setTags] = useState([])
@@ -38,6 +39,7 @@ export default function Register() {
         setForm({
           name: vtuber.name || '',
           bio: vtuber.bio || '',
+          gender: vtuber.gender || '',
         })
         setLinks(vtuber.links || {})
         setTags(vtuber.tags || [])
@@ -94,6 +96,7 @@ export default function Register() {
         bio: form.bio,
         avatar_url,
         mood: tags.find((tag) => MOODS.includes(tag)) || null,
+        gender: form.gender || null,
         tags,
         links,
         vector,
@@ -136,6 +139,22 @@ export default function Register() {
             className="w-full border rounded px-3 py-2"
             required
           />
+        </Field>
+
+        <Field label="性別">
+          <select
+            name="gender"
+            value={form.gender}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2"
+          >
+            <option value="">選択してください</option>
+            {GENDERS.map((gender) => (
+              <option key={gender} value={gender}>
+                {gender}
+              </option>
+            ))}
+          </select>
         </Field>
 
         <Field label="一言紹介">

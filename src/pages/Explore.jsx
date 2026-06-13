@@ -2,18 +2,20 @@ import { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { fetchVtubers, recordImpression } from '../lib/api'
 import { rankByMatch } from '../lib/matching'
-import { MOODS, TAG_GROUPS } from '../lib/constants'
+import { MOODS, GENDERS, TAG_GROUPS } from '../lib/constants'
 import VTuberCard from '../components/VTuberCard'
 
 export default function Explore() {
   const location = useLocation()
   const answers = location.state?.answers
+  const preferredGender = location.state?.gender
 
   const [vtubers, setVtubers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [selectedTags, setSelectedTags] = useState([])
   const [selectedMood, setSelectedMood] = useState('')
+  const [selectedGender, setSelectedGender] = useState('')
 
   useEffect(() => {
     fetchVtubers()
@@ -24,8 +26,11 @@ export default function Explore() {
 
   const matchResults = useMemo(() => {
     if (!answers) return null
-    return rankByMatch(vtubers, answers).slice(0, 5)
-  }, [answers, vtubers])
+    const pool = preferredGender
+      ? vtubers.filter((v) => v.gender === preferredGender)
+      : vtubers
+    return rankByMatch(pool, answers).slice(0, 5)
+  }, [answers, vtubers, preferredGender])
 
   useEffect(() => {
     if (!matchResults) return
@@ -43,6 +48,7 @@ export default function Explore() {
   const filtered = useMemo(() => {
     return vtubers.filter((v) => {
       if (selectedMood && v.mood !== selectedMood) return false
+      if (selectedGender && v.gender !== selectedGender) return false
       if (
         selectedTags.length > 0 &&
         !selectedTags.every((tag) => v.tags?.includes(tag))
@@ -50,7 +56,7 @@ export default function Explore() {
         return false
       return true
     })
-  }, [vtubers, selectedTags, selectedMood])
+  }, [vtubers, selectedTags, selectedMood, selectedGender])
 
   if (loading) return <p className="text-center text-gray-400">読み込み中...</p>
   if (error) return <p className="text-center text-red-500">{error}</p>
@@ -76,6 +82,27 @@ export default function Explore() {
         <h1 className="text-2xl font-bold mb-4">VTuberを探す</h1>
 
         <div className="flex flex-col gap-3 mb-6">
+          <div>
+            <p className="text-sm font-semibold mb-2">性別</p>
+            <div className="flex flex-wrap gap-2">
+              {GENDERS.map((g) => (
+                <button
+                  key={g}
+                  onClick={() =>
+                    setSelectedGender((prev) => (prev === g ? '' : g))
+                  }
+                  className={`text-sm px-3 py-1 rounded-full border transition ${
+                    selectedGender === g
+                      ? 'bg-purple-600 text-white border-purple-600'
+                      : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                  }`}
+                >
+                  {g}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div>
             <p className="text-sm font-semibold mb-2">ムード</p>
             <div className="flex flex-wrap gap-2">

@@ -14,9 +14,14 @@ export default function VTuberCard({ vtuber, matchScore }) {
         />
         <div className="flex-1 min-w-0">
           <p className="font-semibold truncate">{vtuber.name}</p>
-          {vtuber.mood && (
-            <p className="text-xs text-purple-600">{vtuber.mood}</p>
-          )}
+          <div className="flex items-center gap-2">
+            {vtuber.mood && (
+              <p className="text-xs text-purple-600">{vtuber.mood}</p>
+            )}
+            {vtuber.gender && (
+              <p className="text-xs text-gray-400">{vtuber.gender}</p>
+            )}
+          </div>
         </div>
         {typeof matchScore === 'number' && (
           <div className="text-right shrink-0">
