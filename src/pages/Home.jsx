@@ -2,14 +2,22 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
-    <div className="relative flex flex-col items-center text-center gap-8 py-12 overflow-hidden">
+    <div className="relative isolate min-h-[calc(100vh-9rem)] flex flex-col items-center text-center gap-8 py-12 overflow-hidden">
       <div
-        className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-[#ff005d]/20 blur-3xl animate-blob pointer-events-none"
+        className="absolute -top-1/4 -left-1/4 w-[140%] h-[140%] -z-10 pointer-events-none animate-blob"
+        style={{
+          background:
+            'radial-gradient(circle at 30% 30%, rgba(255,0,93,0.18), transparent 60%)',
+        }}
         aria-hidden="true"
       />
       <div
-        className="absolute top-10 -right-24 w-80 h-80 rounded-full bg-[#ff00d4]/20 blur-3xl animate-blob pointer-events-none"
-        style={{ animationDelay: '4s' }}
+        className="absolute -bottom-1/4 -right-1/4 w-[140%] h-[140%] -z-10 pointer-events-none animate-blob"
+        style={{
+          background:
+            'radial-gradient(circle at 70% 70%, rgba(255,0,212,0.18), transparent 60%)',
+          animationDelay: '4s',
+        }}
         aria-hidden="true"
       />
 
