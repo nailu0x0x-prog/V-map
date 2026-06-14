@@ -59,7 +59,7 @@ export default function Quiz() {
               key={g}
               type="button"
               onClick={() => setGender((prev) => (prev === g ? '' : g))}
-              className={`text-sm px-3 py-1 rounded-full border transition ${
+              className={`text-sm px-3 py-1 rounded-full border transition hover:scale-105 active:scale-95 ${
                 gender === g
                   ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
                   : 'border-gray-300 text-gray-600 hover:border-pink-400'
@@ -74,7 +74,7 @@ export default function Quiz() {
       <div className="mt-10 text-center">
         <button
           onClick={handleSubmit}
-          className="px-8 py-3 rounded-full bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white font-semibold hover:opacity-90 transition"
+          className="px-8 py-3 rounded-full bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white font-semibold hover:opacity-90 hover:scale-105 active:scale-95 transition"
         >
           結果を見る
         </button>

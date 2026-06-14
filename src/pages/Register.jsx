@@ -197,7 +197,7 @@ export default function Register() {
                       key={tag}
                       type="button"
                       onClick={() => toggleTag(tag)}
-                      className={`text-sm px-3 py-1 rounded-full border transition ${
+                      className={`text-sm px-3 py-1 rounded-full border transition hover:scale-105 active:scale-95 ${
                         tags.includes(tag)
                           ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
                           : 'border-gray-300 text-gray-600 hover:border-pink-400'
@@ -259,7 +259,7 @@ export default function Register() {
         <button
           type="submit"
           disabled={submitting}
-          className="px-8 py-3 rounded-full bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white font-semibold hover:opacity-90 transition disabled:opacity-50"
+          className="px-8 py-3 rounded-full bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white font-semibold hover:opacity-90 hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:hover:scale-100"
         >
           {submitting ? '保存中...' : isEdit ? '更新する' : '登録する'}
         </button>

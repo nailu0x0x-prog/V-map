@@ -102,7 +102,7 @@ export default function Explore() {
                   onClick={() =>
                     setSelectedGender((prev) => (prev === g ? '' : g))
                   }
-                  className={`text-sm px-3 py-1 rounded-full border transition ${
+                  className={`text-sm px-3 py-1 rounded-full border transition hover:scale-105 active:scale-95 ${
                     selectedGender === g
                       ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
                       : 'border-gray-300 text-gray-600 hover:border-pink-400'
@@ -123,7 +123,7 @@ export default function Explore() {
                   onClick={() =>
                     setSelectedMood((prev) => (prev === mood ? '' : mood))
                   }
-                  className={`text-sm px-3 py-1 rounded-full border transition ${
+                  className={`text-sm px-3 py-1 rounded-full border transition hover:scale-105 active:scale-95 ${
                     selectedMood === mood
                       ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
                       : 'border-gray-300 text-gray-600 hover:border-pink-400'
@@ -143,7 +143,7 @@ export default function Explore() {
                   <button
                     key={tag}
                     onClick={() => toggleTag(tag)}
-                    className={`text-sm px-3 py-1 rounded-full border transition ${
+                    className={`text-sm px-3 py-1 rounded-full border transition hover:scale-105 active:scale-95 ${
                       selectedTags.includes(tag)
                         ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
                         : 'border-gray-300 text-gray-600 hover:border-pink-400'

@@ -4,13 +4,13 @@ export default function VTuberCard({ vtuber, matchScore }) {
   return (
     <Link
       to={`/v/${vtuber.id}`}
-      className="bg-white rounded-xl border p-4 flex flex-col gap-3 hover:shadow-md transition"
+      className="group bg-white rounded-xl border p-4 flex flex-col gap-3 transition hover:-translate-y-1 hover:shadow-lg hover:border-pink-200"
     >
       <div className="flex items-center gap-3">
         <img
           src={vtuber.avatar_url || 'https://placehold.co/64x64?text=V'}
           alt={vtuber.name}
-          className="w-14 h-14 rounded-full object-cover bg-gray-100"
+          className="w-14 h-14 rounded-full object-cover bg-gray-100 transition group-hover:scale-110"
         />
         <div className="flex-1 min-w-0">
           <p className="font-semibold truncate">{vtuber.name}</p>
