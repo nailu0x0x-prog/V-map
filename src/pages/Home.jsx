@@ -2,26 +2,8 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
-    <div className="relative isolate min-h-[calc(100vh-9rem)] flex flex-col items-center text-center gap-8 py-12 overflow-hidden">
-      <div
-        className="absolute -top-1/4 -left-1/4 w-[140%] h-[140%] -z-10 pointer-events-none animate-blob"
-        style={{
-          background:
-            'radial-gradient(circle at 30% 30%, rgba(255,0,93,0.18), transparent 60%)',
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute -bottom-1/4 -right-1/4 w-[140%] h-[140%] -z-10 pointer-events-none animate-blob"
-        style={{
-          background:
-            'radial-gradient(circle at 70% 70%, rgba(255,0,212,0.18), transparent 60%)',
-          animationDelay: '4s',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative animate-fade-in-up">
+    <div className="flex flex-col items-center text-center gap-8 py-12">
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-bold mb-4">
           フォロワー数じゃなく、<br className="sm:hidden" />
           <span className="bg-gradient-to-r from-[#ff005d] via-[#ff00d4] to-[#ff005d] bg-clip-text text-transparent animate-gradient">
@@ -36,7 +18,7 @@ export default function Home() {
       </div>
 
       <div
-        className="relative flex gap-4 animate-fade-in-up"
+        className="flex gap-4 animate-fade-in-up"
         style={{ animationDelay: '0.15s' }}
       >
         <Link
@@ -53,7 +35,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8 w-full">
         <FeatureCard
           title="8問の診断"
           desc="スライダーで答えるだけで、あなたに合うVTuberをマッチング度で表示します。"
