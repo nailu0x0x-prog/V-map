@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { fetchVtubers, recordImpression } from '../lib/api'
 import { rankByMatch } from '../lib/matching'
-import { MOODS, GENDERS, TAG_GROUPS } from '../lib/constants'
+import { MOODS, GENDERS, TAG_GROUPS, PLATFORM_TAGS } from '../lib/constants'
 import VTuberCard from '../components/VTuberCard'
 
 export default function Explore() {
@@ -46,12 +46,23 @@ export default function Explore() {
   }
 
   const filtered = useMemo(() => {
+    const selectedPlatformTags = selectedTags.filter((tag) =>
+      PLATFORM_TAGS.includes(tag),
+    )
+    const selectedOtherTags = selectedTags.filter(
+      (tag) => !PLATFORM_TAGS.includes(tag),
+    )
     return vtubers.filter((v) => {
       if (selectedMood && v.mood !== selectedMood) return false
       if (selectedGender && v.gender !== selectedGender) return false
       if (
-        selectedTags.length > 0 &&
-        !selectedTags.every((tag) => v.tags?.includes(tag))
+        selectedPlatformTags.length > 0 &&
+        !selectedPlatformTags.some((tag) => v.tags?.includes(tag))
+      )
+        return false
+      if (
+        selectedOtherTags.length > 0 &&
+        !selectedOtherTags.every((tag) => v.tags?.includes(tag))
       )
         return false
       return true
