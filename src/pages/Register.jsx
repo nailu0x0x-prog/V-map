@@ -199,8 +199,8 @@ export default function Register() {
                       onClick={() => toggleTag(tag)}
                       className={`text-sm px-3 py-1 rounded-full border transition ${
                         tags.includes(tag)
-                          ? 'bg-purple-600 text-white border-purple-600'
-                          : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                          ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
+                          : 'border-gray-300 text-gray-600 hover:border-pink-400'
                       }`}
                     >
                       {tag}
@@ -245,7 +245,7 @@ export default function Register() {
                     step="0.01"
                     value={vector[i]}
                     onChange={(e) => handleVectorChange(i, e.target.value)}
-                    className="flex-1 accent-purple-600"
+                    className="flex-1 accent-pink-600"
                   />
                   <span className="w-24">{q.right}</span>
                 </div>
@@ -259,7 +259,7 @@ export default function Register() {
         <button
           type="submit"
           disabled={submitting}
-          className="px-8 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition disabled:opacity-50"
+          className="px-8 py-3 rounded-full bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white font-semibold hover:opacity-90 transition disabled:opacity-50"
         >
           {submitting ? '保存中...' : isEdit ? '更新する' : '登録する'}
         </button>

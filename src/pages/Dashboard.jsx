@@ -78,7 +78,7 @@ export default function Dashboard() {
         {items.length === 0 ? (
           <div className="text-center text-gray-400 py-12">
             <p className="mb-4">登録したVTuberがありません。</p>
-            <Link to="/register" className="text-purple-600 font-semibold">
+            <Link to="/register" className="text-pink-600 font-semibold">
               VTuberを登録する →
             </Link>
           </div>
@@ -97,13 +97,13 @@ export default function Dashboard() {
                   </div>
                   <Link
                     to={`/v/${vtuber.id}`}
-                    className="text-sm text-purple-600"
+                    className="text-sm text-pink-600"
                   >
                     プロフィールを見る
                   </Link>
                   <Link
                     to={`/v/${vtuber.id}/edit`}
-                    className="text-sm text-purple-600"
+                    className="text-sm text-pink-600"
                   >
                     編集
                   </Link>
@@ -134,7 +134,7 @@ export default function Dashboard() {
         {favorites.length === 0 ? (
           <div className="text-center text-gray-400 py-12">
             <p className="mb-4">気になるに追加したVTuberがありません。</p>
-            <Link to="/explore" className="text-purple-600 font-semibold">
+            <Link to="/explore" className="text-pink-600 font-semibold">
               VTuberを探す →
             </Link>
           </div>
@@ -153,7 +153,7 @@ export default function Dashboard() {
                   </div>
                   <Link
                     to={`/v/${vtuber.id}`}
-                    className="text-sm text-purple-600"
+                    className="text-sm text-pink-600"
                   >
                     プロフィールを見る
                   </Link>

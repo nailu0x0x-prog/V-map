@@ -43,7 +43,7 @@ export default function Quiz() {
                 step="0.01"
                 value={answers[i]}
                 onChange={(e) => handleChange(i, e.target.value)}
-                className="flex-1 accent-purple-600"
+                className="flex-1 accent-pink-600"
               />
               <span className="w-24">{q.right}</span>
             </div>
@@ -61,8 +61,8 @@ export default function Quiz() {
               onClick={() => setGender((prev) => (prev === g ? '' : g))}
               className={`text-sm px-3 py-1 rounded-full border transition ${
                 gender === g
-                  ? 'bg-purple-600 text-white border-purple-600'
-                  : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                  ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
+                  : 'border-gray-300 text-gray-600 hover:border-pink-400'
               }`}
             >
               {g}
@@ -74,7 +74,7 @@ export default function Quiz() {
       <div className="mt-10 text-center">
         <button
           onClick={handleSubmit}
-          className="px-8 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition"
+          className="px-8 py-3 rounded-full bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white font-semibold hover:opacity-90 transition"
         >
           結果を見る
         </button>

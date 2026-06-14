@@ -104,8 +104,8 @@ export default function Explore() {
                   }
                   className={`text-sm px-3 py-1 rounded-full border transition ${
                     selectedGender === g
-                      ? 'bg-purple-600 text-white border-purple-600'
-                      : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                      ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
+                      : 'border-gray-300 text-gray-600 hover:border-pink-400'
                   }`}
                 >
                   {g}
@@ -125,8 +125,8 @@ export default function Explore() {
                   }
                   className={`text-sm px-3 py-1 rounded-full border transition ${
                     selectedMood === mood
-                      ? 'bg-purple-600 text-white border-purple-600'
-                      : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                      ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
+                      : 'border-gray-300 text-gray-600 hover:border-pink-400'
                   }`}
                 >
                   {mood}
@@ -145,8 +145,8 @@ export default function Explore() {
                     onClick={() => toggleTag(tag)}
                     className={`text-sm px-3 py-1 rounded-full border transition ${
                       selectedTags.includes(tag)
-                        ? 'bg-purple-600 text-white border-purple-600'
-                        : 'border-gray-300 text-gray-600 hover:border-purple-400'
+                        ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
+                        : 'border-gray-300 text-gray-600 hover:border-pink-400'
                     }`}
                   >
                     {tag}

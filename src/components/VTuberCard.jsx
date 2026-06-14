@@ -16,7 +16,7 @@ export default function VTuberCard({ vtuber, matchScore }) {
           <p className="font-semibold truncate">{vtuber.name}</p>
           <div className="flex items-center gap-2">
             {vtuber.mood && (
-              <p className="text-xs text-purple-600">{vtuber.mood}</p>
+              <p className="text-xs text-pink-600">{vtuber.mood}</p>
             )}
             {vtuber.gender && (
               <p className="text-xs text-gray-400">{vtuber.gender}</p>
@@ -26,7 +26,7 @@ export default function VTuberCard({ vtuber, matchScore }) {
         {typeof matchScore === 'number' && (
           <div className="text-right shrink-0">
             <p className="text-xs text-gray-400">マッチ度</p>
-            <p className="font-bold text-purple-600">
+            <p className="font-bold text-pink-600">
               {Math.round(Math.max(matchScore, 0) * 100)}%
             </p>
           </div>

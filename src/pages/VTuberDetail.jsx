@@ -43,7 +43,7 @@ export default function VTuberDetail() {
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-6">
-      <Link to="/explore" className="text-sm text-purple-600">
+      <Link to="/explore" className="text-sm text-pink-600">
         ← 一覧に戻る
       </Link>
 
@@ -57,7 +57,7 @@ export default function VTuberDetail() {
           <h1 className="text-2xl font-bold">{vtuber.name}</h1>
           <div className="flex items-center gap-2 mt-1">
             {vtuber.mood && (
-              <p className="text-purple-600 text-sm">{vtuber.mood}</p>
+              <p className="text-pink-600 text-sm">{vtuber.mood}</p>
             )}
             {vtuber.gender && (
               <p className="text-gray-400 text-sm">{vtuber.gender}</p>
@@ -68,8 +68,8 @@ export default function VTuberDetail() {
           onClick={handleToggleFavorite}
           className={`ml-auto px-4 py-2 rounded-full border text-sm font-semibold transition ${
             favorite
-              ? 'bg-purple-600 text-white border-purple-600'
-              : 'border-gray-300 text-gray-600 hover:border-purple-400'
+              ? 'bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white border-transparent'
+              : 'border-gray-300 text-gray-600 hover:border-pink-400'
           }`}
         >
           {favorite ? '♥ 気に入り済み' : '♡ 気になる'}
@@ -101,7 +101,7 @@ export default function VTuberDetail() {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:border-purple-400 transition"
+                className="text-sm px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:border-pink-400 transition"
               >
                 {LINK_LABELS[key] || key}
               </a>

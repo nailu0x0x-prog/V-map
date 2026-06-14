@@ -17,13 +17,13 @@ export default function Home() {
       <div className="flex gap-4">
         <Link
           to="/quiz"
-          className="px-6 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition"
+          className="px-6 py-3 rounded-full bg-gradient-to-r from-[#ff005d] to-[#ff00d4] text-white font-semibold hover:opacity-90 transition"
         >
           診断をはじめる
         </Link>
         <Link
           to="/explore"
-          className="px-6 py-3 rounded-full border border-purple-600 text-purple-600 font-semibold hover:bg-purple-50 transition"
+          className="px-6 py-3 rounded-full border border-[#ff005d] text-[#ff005d] font-semibold hover:bg-pink-50 transition"
         >
           一覧から探す
         </Link>
