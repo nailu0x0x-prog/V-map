@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Kurokane";
+  src: url("/fonts/FOT-KurokaneStd-EB.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Kurokane", sans-serif;
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
